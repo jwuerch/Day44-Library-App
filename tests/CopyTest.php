@@ -15,11 +15,10 @@
 
     class AuthorTest extends PHPUnit_Framework_TestCase {
 
-        // protected function teardown() {
-        //     Author::deleteAll();
-        //     Book::deleteAll();
-        //     Copy::deleteAll();
-        // }
+        protected function teardown() {
+            Book::deleteAll();
+            Copy::deleteAll();
+        }
 
         function testGetNumber() {
             //Arrange;
@@ -63,6 +62,20 @@
 
             //Assert;
             $this->assertEquals([$test_book, $test_book2], $result);
+        }
+
+        function testSave() {
+            //Arrange;
+            $id = null;
+            $number = 1;
+            $test_book = new Copy($number, $id);
+
+            //Act;
+            $test_book->save();
+            $result = Copy::getAll();
+
+            //Assert;
+            $this->assertEquals($test_book, $result[0]);
         }
 
     }
