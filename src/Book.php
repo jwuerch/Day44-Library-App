@@ -107,6 +107,21 @@
             return $authors;
         }
 
+        public function update($new_title, $new_genre, $new_num_of_copies) {
+            if ($new_title == '' OR $new_genre == ' ') {
+                $new_title = $this->getTitle();
+            }
+            if ($new_genre == '' OR $new_genre == ' ') {
+                $new_genre = $this->getGenre();
+            }
+            if ($new_num_of_copies == '' OR $new_num_of_copies == ' ') {
+                $new_num_of_copies == $this->getNumOfCopies;
+            }
+            $GLOBALS['DB']->exec("UPDATE books SET title = {$new_title}, genre = {$new_genre}, num_of_copies = {$new_num_of_copies}");
+            $this->setTitle($new_title);
+            $this->setGenre($new_genre);
+            $this->setNumOfCopies($new_num_of_copies);
+        }
     }
 
 ?>

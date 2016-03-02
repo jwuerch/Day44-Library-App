@@ -250,6 +250,26 @@
             //Assert;
             $this->assertEquals([$test_author], $result);
         }
+
+        function testUpdate() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book->save();
+
+            //Act;
+            $new_title = '';
+            $new_genre =' ';
+            $new_num_of_copies = 2;
+            $test_book->update($new_title, $new_genre, $new_num_of_copies);
+            $result = [$test_book->getTitle(), $test_book->getGenre(), $test_book->getNumOfCopies()];
+
+            //Assert;
+            $this->assertEquals(['Ishmael', 'Sci-Fi', $new_num_of_copies], $result);
+        }
     }
 
 
