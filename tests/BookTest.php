@@ -15,7 +15,7 @@
     class BookTest extends PHPUnit_Framework_TestCase {
 
         protected function teardown() {
-
+            Book::deleteAll();
         }
 
         function testGetTitle() {
@@ -71,6 +71,22 @@
 
             //Assert;
             $this->assertEquals($id, $result);
+        }
+
+        function testSave() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+
+            //Act;
+            $test_book->save();
+            $result = Book::getAll();
+
+            //Assert;
+            $this->assertEquals([$test_book], $result);
         }
     }
 

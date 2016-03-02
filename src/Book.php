@@ -23,6 +23,7 @@
         public function setNumOfCopies($new_num_of_copies) {
             $this->num_of_copies = $new_num_of_copies;
         }
+
         //Getters;
         public function getTitle() {
             return $this->title;
@@ -36,6 +37,31 @@
         public function getId() {
             return $this->id;
         }
+
+        public function save() {
+            $GLOBALS['DB']->exec("INSERT INTO books (title, genre, num_of_copies) VALUES ('{$this->getTitle()}', '{$this->getGenre()}', {$this->getNumOfCopies()});");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function deleteAll() {
+            $GLOBALS['DB']->exec("DELETE FROM books");
+        }
+
+        static function getAll() {
+            $returned_books = $GLOBALS['DB']->query("SELECT * FROM books");
+            $books = array();
+
+            foreach ($returned_books as $book) {
+                $title = $book['title'];
+                $genre = $book['genre'];
+                $num_of_copies = $book['num_of_copies'];
+                $id = $book['id'];
+                $new_book = new Book($title, $genre, $num_of_copies, $id);
+                array_push($books, $new_book);
+            }
+            return $books;
+        }
+
     }
 
 ?>
