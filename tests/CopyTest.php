@@ -78,4 +78,24 @@
             $this->assertEquals($test_book, $result[0]);
         }
 
+        function testDeleteAll() {
+            //Arrange;
+            $id = null;
+            $number = 1;
+            $test_book = new Copy($number, $id);
+            $test_book->save();
+
+            $id2 = null;
+            $number2 = 2;
+            $test_book2 = new Copy($number2, $id2);
+            $test_book2->save();
+
+            //Act;
+            Copy::deleteAll();
+            $result = Copy::getAll();
+
+            //Assert;
+            $this->assertEquals([], $result);
+        }
+
     }
