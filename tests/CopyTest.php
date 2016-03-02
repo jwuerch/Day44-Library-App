@@ -21,16 +21,29 @@
         //     Copy::deleteAll();
         // }
 
-        public function testGetNumber() {
+        function testGetNumber() {
             //Arrange;
+            $id = null;
             $number = 1;
-            $id = 1;
             $test_book = new Copy($number, $id);
 
             //Act;
             $result = $test_book->getNumber();
             //Assert;
             $this->assertEquals($number, $result);
+        }
+
+        function testGetId() {
+            //Arrange;
+            $id = null;
+            $number = 1;
+            $test_book = new Copy($number, $id);
+
+            //Act;
+            $result = $test_book->getId();
+
+            //Assert;
+            $this->assertEquals($id, $result);
         }
 
     }
