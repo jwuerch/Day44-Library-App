@@ -57,6 +57,21 @@
             //Assert;
             $this->assertEquals($num_of_copies, $result);
         }
+
+        function testGetId() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+
+            //Act;
+            $result = $test_book->getId();
+
+            //Assert;
+            $this->assertEquals($id, $result);
+        }
     }
 
 

@@ -33,6 +33,9 @@
         public function getNumOfCopies() {
             return $this->num_of_copies;
         }
+        public function getId() {
+            return $this->id;
+        }
     }
 
 ?>
