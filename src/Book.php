@@ -74,6 +74,19 @@
             return $found_book;
         }
 
+        static function searchByTitle($search_term) {
+            $books = Book::getAll();
+            $found_books = array();
+            foreach ($books as $book) {
+                similar_text($search_term, $book->getTitle(), $percentage);
+                var_dump($percentage);
+                if ($percentage > 35) {
+                    array_push($found_books, $book);
+                }
+            }
+            return $found_books;
+        }
+
     }
 
 ?>
