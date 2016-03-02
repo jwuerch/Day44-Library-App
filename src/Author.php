@@ -98,6 +98,12 @@
         }
 
         public function update($new_first_name, $new_last_name) {
+            if ($new_first_name == '' OR $new_first_name == ' ') {
+                $new_first_name = $this->getFirstName();
+            }
+            if ($new_last_name == '' OR $new_last_name == ' ') {
+                $new_last_name = $this->getLastName();
+            }
             $GLOBALS['DB']->exec("UPDATE authors SET first_name = '{$new_first_name}', last_name = '{$new_last_name}' WHERE id = {$this->getId()}");
             $this->setFirstName($new_first_name);
             $this->setLastName($new_last_name);

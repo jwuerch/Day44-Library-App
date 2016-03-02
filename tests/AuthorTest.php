@@ -205,12 +205,12 @@
 
             //Act;
             $new_first_name = 'Dan';
-            $new_last_name = 'Quinn';
+            $new_last_name = ' ';
             $test_author->update($new_first_name, $new_last_name);
             $result = [$test_author->getFirstName(), $test_author->getLastName()];
 
             //Assert;
-            $this->assertEquals([$new_first_name, $new_last_name], $result);
+            $this->assertEquals([$new_first_name, 'Quinn'], $result);
 
         }
     }
