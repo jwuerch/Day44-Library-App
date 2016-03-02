@@ -96,6 +96,12 @@
             }
             return $books;
         }
+
+        public function update($new_first_name, $new_last_name) {
+            $GLOBALS['DB']->exec("UPDATE authors SET first_name = '{$new_first_name}', last_name = '{$new_last_name}' WHERE id = {$this->getId()}");
+            $this->setFirstName($new_first_name);
+            $this->setLastName($new_last_name);
+        }
     }
 
 
