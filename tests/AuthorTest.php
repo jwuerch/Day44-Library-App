@@ -57,6 +57,30 @@
             //Assert;
             $this->assertEquals($id, $result);
         }
+
+        function testSave() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 1;
+            $test_author = new Author($first_name, $last_name, $id);
+
+            //Act;
+            $test_author->save();
+            $result = Author::getAll();
+
+            //Assert;
+            $this->assertEquals($test_author, $result[0]);
+
+        }
+
+        function testGetAll() {
+
+        }
+
+        function testDeleteAll() {
+
+        }
     }
 
 
