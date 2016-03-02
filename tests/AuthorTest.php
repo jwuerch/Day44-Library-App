@@ -211,7 +211,28 @@
 
             //Assert;
             $this->assertEquals([$new_first_name, 'Quinn'], $result);
+        }
 
+        function testDelete() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 1;
+            $test_author = new Author($first_name, $last_name, $id);
+            $test_author->save();
+
+            $first_name2 = 'Ernest';
+            $last_name2 = 'Hemingway';
+            $id2 = 2;
+            $test_author2 = new Author($first_name2, $last_name2, $id2);
+            $test_author2->save();
+
+            //Act;
+            $test_author->delete();
+            $result = Author::getAll();
+
+            //Assert;
+            $this->assertEquals([$test_author2], $result);
         }
     }
 

@@ -108,6 +108,11 @@
             $this->setFirstName($new_first_name);
             $this->setLastName($new_last_name);
         }
+
+        public function delete() {
+            $GLOBALS['DB']->exec("DELETE FROM authors WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE author_id = {$this->getId()};");
+        }
     }
 
 
