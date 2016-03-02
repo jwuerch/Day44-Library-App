@@ -37,9 +37,18 @@
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
     });
 
-    $app->post("delete_all_books", function() use ($app) {
+    $app->post("/delete_all_books", function() use ($app) {
         Book::deleteAll();
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
+    $app->patch("/update_book/{id}", function($id) use ($app) {
+        $book = Book::find($id);
+        $new_title = $_POST['new_title'];
+        $new_genre = $_POST['new_genre'];
+        $new_number_of_copies = $_POST['new_number_of_copies'];
+        $book->update($new_title, $new_genre, $new_number_of_copies);
+        return $app['twig']->render('book.html.twig', array('book' => $book));
     });
 
     $app->delete("/delete_book", function() use ($app) {

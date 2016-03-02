@@ -12,6 +12,27 @@
                 <ul>
                 </ul>
                 <br>
+                <h5>Update Information on the Book {{ book.getName }}.</h5>
+                <form action="/update_book/{{ book.getId }}" method="post">
+                    <input type="hidden" name="_method" value="patch">
+                    <div class="form-group">
+                        <label for="new_title">New Title</label>
+                        <input id="new_title" name="new_title" class="form-select" type="text" placeholder="Ishmael" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new_genre">New Genre</label>
+                        <input id="new_genre" name="new_genre" class="form-select" type="text" placeholder="Thriller" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new_number_of_copies">How Many Copies?</label>
+                        <input id="new_number_of_copies" name="new_number_of_copies" class="form-select" type="text" placeholder="0" required>
+                    </div>
+                    <button class="btn btn-warning" type="submit">Update</button>
+                </form>
+
+                <br>
                 <form action="/delete_book" method="post">
                     <input type="hidden" name="_method" value="delete">
                     <input type="hidden" name="book_id" value="{{ book.getId() }}">
