@@ -92,13 +92,12 @@
 
         public function getAuthors() {
             $returned_authors = $GLOBALS['DB']->query("SELECT authors.* FROM books
-                             JOIN books_authors ON (books.id = books_authors.book_id)
-                             JOIN authors ON (books_authors.author_id = authors.id)
-                             WHERE books.id = {$this->getId()};");
+                 JOIN books_authors ON (books.id = books_authors.book_id)
+                 JOIN authors ON (books_authors.author_id = authors.id)
+                 WHERE books.id = {$this->getId()};");
 
             $authors = array();
             foreach ($returned_authors as $author) {
-
                 $first_name = $author['first_name'];
                 $last_name = $author['last_name'];
                 $id = $author['id'];

@@ -167,6 +167,35 @@
             //Assert;
             $this->assertEquals([$test_author2, $test_author3], $result);
         }
+
+        function testGetBooks() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 1;
+            $test_author = new Author($first_name, $last_name, $id);
+            $test_author->save();
+
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $test_book = new Book($title, $genre);
+            $test_book->save();
+
+            $title2 = 'Day of the Triffods';
+            $genre2 = 'Sci-Fi';
+            $test_book2 = new Book($title2, $genre2);
+            $test_book2->save();
+
+            //Act;
+            $test_author->addBook($test_book);
+            $test_author->addBook($test_book2);
+            $result = $test_author->getBooks();
+
+            //Assert;
+            $this->assertEquals([$test_book, $test_book2], $result);
+
+
+        }
     }
 
 

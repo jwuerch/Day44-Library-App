@@ -75,6 +75,27 @@
             }
             return $found_authors;
         }
+
+        public function addBook($book) {
+            $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$book->getId()}, {$this->getId()});");
+        }
+
+        public function getBooks() {
+            $returned_books = $GLOBALS['DB']->query("SELECT books.* FROM authors
+            JOIN books_authors ON (authors.id = books_authors.author_id)
+            JOIN books ON (books_authors.book_id = books.id)
+            WHERE author_id = {$this->getId()};");
+            $books = array();
+            foreach ($returned_books as $book) {
+                $title = $book['title'];
+                $genre = $book['genre'];
+                $num_of_copies = $book['num_of_copies'];
+                $id = $book['id'];
+                $new_book = new Book($title, $genre, $num_of_copies, $id);
+                array_push($books, $new_book);
+            }
+            return $books;
+        }
     }
 
 
