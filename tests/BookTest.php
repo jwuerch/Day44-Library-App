@@ -6,6 +6,7 @@
     */
 
     require_once "src/Book.php";
+    require_once "src/Author.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -16,6 +17,7 @@
 
         protected function teardown() {
             Book::deleteAll();
+            Author::deleteAll();
         }
 
         function testGetTitle() {
@@ -188,7 +190,65 @@
 
             //Assert;
             $this->assertEquals([$test_book2, $test_book3], $result);
+        }
 
+        function testAddAuthor() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book->save();
+
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 2;
+            $test_author = new Author($first_name, $last_name, $id);
+            $test_author->save();
+
+            $first_name2 = 'John';
+            $last_name2 = 'Doe';
+            $id2 = 3;
+            $test_author2 = new Author($first_name2, $last_name2, $id2);
+            $test_author2->save();
+
+            //Act;
+            $test_book->addAuthor($test_author);
+            $test_book->addAuthor($test_author2);
+            $result = $test_book->getAuthors();
+
+            //Assert;
+            $this->assertEquals([$test_author, $test_author2], $result);
+        }
+
+        function testGetAuthors() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book->save();
+
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 2;
+            $test_author = new Author($first_name, $last_name, $id);
+            $test_author->save();
+
+            $first_name2 = 'John';
+            $last_name2 = 'Doe';
+            $id2 = 3;
+            $test_author2 = new Author($first_name2, $last_name2, $id2);
+            $test_author2->save();
+
+            //Act;
+            $test_book->addAuthor($test_author);
+            $result = $test_book->getAuthors();
+
+            //Assert;
+            $this->assertEquals([$test_author], $result);
         }
     }
 

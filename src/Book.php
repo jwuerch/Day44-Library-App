@@ -79,12 +79,33 @@
             $found_books = array();
             foreach ($books as $book) {
                 similar_text($search_term, $book->getTitle(), $percentage);
-                var_dump($percentage);
                 if ($percentage > 35) {
                     array_push($found_books, $book);
                 }
             }
             return $found_books;
+        }
+
+        public function addAuthor($author) {
+            $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$this->getId()}, {$author->getId()});");
+        }
+
+        public function getAuthors() {
+            $returned_authors = $GLOBALS['DB']->query("SELECT authors.* FROM books
+                             JOIN books_authors ON (books.id = books_authors.book_id)
+                             JOIN authors ON (books_authors.author_id = authors.id)
+                             WHERE books.id = {$this->getId()};");
+
+            $authors = array();
+            foreach ($returned_authors as $author) {
+
+                $first_name = $author['first_name'];
+                $last_name = $author['last_name'];
+                $id = $author['id'];
+                $new_author = new Author($first_name, $last_name, $id);
+                array_push($authors, $new_author);
+            }
+            return $authors;
         }
 
     }
