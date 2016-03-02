@@ -30,6 +30,9 @@
         public function getGenre() {
             return $this->genre;
         }
+        public function getNumOfCopies() {
+            return $this->num_of_copies;
+        }
     }
 
 ?>

@@ -43,6 +43,20 @@
             //Assert;
             $this->assertEquals($genre, $result);
         }
+
+        function testGetNumOfCopies() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 2;
+            $test_book = new Book($title, $genre, $num_of_copies);
+
+            //Act;
+            $result = $test_book->getNumOfCopies();
+
+            //Assert;
+            $this->assertEquals($num_of_copies, $result);
+        }
     }
 
 
