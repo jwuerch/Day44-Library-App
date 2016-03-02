@@ -3,8 +3,7 @@
     {% include 'header.html' %}
     <body>
         <div class="container">
-            <div class="jumbotron">
-                {% if books is not empty %}
+
                     <h5>Here Are Your Current Books:</h5>
                     <ul>
                         {% for book in books %}
@@ -15,11 +14,10 @@
                                 </ul>
                         {% endfor %}
                     <ul>
-                {% endif %}
                 <br>
 
                 <!-- ADD BOOK FORM -->
-                <form action="/add_book" method="post">
+                <form action="/add_book" method="post" class="form1">
                     <h5>Add A Book To Your Library:</h5>
                     <div class="form-group">
                         <label for="title">Add Title</label>
@@ -56,7 +54,6 @@
                     <li>{{ result.getTitle }}</li>
                 </ul>
                 {% endfor %}
-            </div>
         </div>
     </body>
     {% include 'footer.html' %}

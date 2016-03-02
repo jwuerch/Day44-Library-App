@@ -3,53 +3,52 @@
     {% include 'header.html' %}
     <body>
         <div class="container">
-            <div class="jumbotron">
-                <h3>{{ book.getTitle }}</h3>
-                <h5 style="text-decoration:underline;">{{ book.getGenre }}</h5>
-                <h5>There are a total of {{ book.getNumOfCopies }} copies.</h5>
-                <form action="/add_copy" method="post">
-                    <input type="hidden" name="book_id" value="{{ book.getId }}">
-                    <button class="btn btn-default" type="submit">Add Copy</button>
-                </form>
-                <form action="/delete_copy" method="post">
-                    <input type="hidden" name="book_id" value="{{ book.getId }}">
-                    <button class="btn btn-default" type="submit">Delete Copy</button>
-                </form>
-                <br>
-                <h5>Current Patrons Who Have A Copy Checked Out:</h5>
-                <ul>
-                </ul>
-                <br>
-                <h5>Update Information on the Book {{ book.getName }}.</h5>
-                <form action="/update_book/{{ book.getId }}" method="post">
-                    <input type="hidden" name="_method" value="patch">
-                    <div class="form-group">
-                        <label for="new_title">New Title</label>
-                        <input id="new_title" name="new_title" class="form-select" type="text" placeholder="Ishmael" required>
-                    </div>
+            <h3>{{ book.getTitle }}</h3>
+            <h5 style="text-decoration:underline;">{{ book.getGenre }}</h5>
+            <h5>There are a total of {{ book.getNumOfCopies }} copies.</h5>
+            <form action="/add_copy" method="post">
+                <input type="hidden" name="book_id" value="{{ book.getId }}">
+                <button class="btn btn-default" type="submit">Add Copy</button>
+            </form>
+            <form action="/delete_copy" method="post">
+                <input type="hidden" name="book_id" value="{{ book.getId }}">
+                <button class="btn btn-default" type="submit">Delete Copy</button>
+            </form>
+            <br>
+            <h5>Current Patrons Who Have A Copy Checked Out:</h5>
+            <ul>
+            </ul>
+            <br>
+            <h5>Update Information on the Book {{ book.getName }}.</h5>
+            <form action="/update_book/{{ book.getId }}" method="post">
+                <input type="hidden" name="_method" value="patch">
+                <div class="form-group">
+                    <label for="new_title">New Title</label>
+                    <input id="new_title" name="new_title" class="form-select" type="text" placeholder="Ishmael" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="new_genre">New Genre</label>
-                        <input id="new_genre" name="new_genre" class="form-select" type="text" placeholder="Thriller" required>
-                    </div>
+                <div class="form-group">
+                    <label for="new_genre">New Genre</label>
+                    <input id="new_genre" name="new_genre" class="form-select" type="text" placeholder="Thriller" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="new_number_of_copies">How Many Copies?</label>
-                        <input id="new_number_of_copies" name="new_number_of_copies" class="form-select" type="text" placeholder="0" required>
-                    </div>
-                    <button class="btn btn-warning" type="submit">Update</button>
-                </form>
+                <div class="form-group">
+                    <label for="new_number_of_copies">How Many Copies?</label>
+                    <input id="new_number_of_copies" name="new_number_of_copies" class="form-select" type="text" placeholder="0" required>
+                </div>
+                <button class="btn btn-warning" type="submit">Update</button>
+            </form>
 
 
-                <br>
-                <form action="/delete_book" method="post">
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="book_id" value="{{ book.getId() }}">
-                    <button class="btn btn-danger">Delete THIS Book</button>
-                </form>
-                <br>
-                <br>
-            </div>
+            <br>
+            <form action="/delete_book" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="book_id" value="{{ book.getId() }}">
+                <button class="btn btn-danger">Delete THIS Book</button>
+            </form>
+            <br>
+            <br>
+
         </div>
 
     </body>

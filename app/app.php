@@ -30,7 +30,6 @@
 
     $app->get("/search_books", function() use ($app) {
         $result = Book::searchByTitle($_GET['search_term']);
-        var_dump($result);
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'results' => $result));
     });
 

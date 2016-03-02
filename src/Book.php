@@ -128,14 +128,6 @@
             $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()};");
         }
 
-        public function dropCopy() {
-
-        }
-
-        public function addCopy() {
-            $current_copies = $this->getNumOfCopies() + 1;
-            $GLOBALS['DB']->exec("UPDATE books SET num_of_copies = {$current_copies} WHERE id = {$this->getId()};");
-        }
     }
 
 ?>
