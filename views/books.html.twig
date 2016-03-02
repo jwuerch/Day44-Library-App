@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                {% if books is not empty %}
+                    <h5>Here Are Your Current Books:</h5>
+                    <ul>
+                        {% for book in books %}
+                            <li><a href="/book/{{ book.getId }}">{{ book.getTitle }}</a></li>
+                                <ul>
+                                    <li><span style="text-decoration:underline;">Genre</span>: {{ book.getGenre }}</li>
+                                    <li>{{ book.getNumOfCopies }} total copies
+                                </ul>
+                        {% endfor %}
+                    <ul>
+                {% endif %}
+                <br>
+
+                <!-- ADD BOOK FORM -->
+                <form action="/add_book" method="post">
+                    <h5>Add A Book To Your Library:</h5>
+                    <div class="form-group">
+                        <label for="title">Add Title</label>
+                        <input id="title" name="title" class="form-select" type="text" placeholder="Ishmael" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genre">Add Genre</label>
+                        <input id="genre" name="genre" class="form-select" type="text" placeholder="Sci-Fi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="copies">How Many Copies?</label>
+                        <input id="copies" name="copies" class="form-select" type="number" placeholder="0" required>
+                    </div>
+                    <button type="submit" class="button btn-primary">Add</button>
+                </form>
+                <br>
+                <br>
+
+                <!-- DELETE FORM -->
+                <form action="/delete_all_books" method="post">
+                    <button class="btn btn-danger">Delete ALL Books</button>
+                </form>
+            </div>
+        </div>
+    </body>
+    {% include 'footer.html' %}
+</html>

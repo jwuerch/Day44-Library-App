@@ -122,6 +122,11 @@
             $this->setGenre($new_genre);
             $this->setNumOfCopies($new_num_of_copies);
         }
+
+        public function delete() {
+            $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()};");
+        }
     }
 
 ?>

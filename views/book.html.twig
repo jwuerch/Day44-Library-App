@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h3>{{ book.getTitle }}</h3>
+                <h5 style="text-decoration:underline;">{{ book.getGenre }}</h5>
+                <h5>There are a total of {{ book.getNumOfCopies }} copies.</h5>
+                <br>
+                <h5>Current Patrons Who Have A Copy Checked Out:</h5>
+                <ul>
+                </ul>
+                <br>
+                <form action="/delete_book" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="book_id" value="{{ book.getId() }}">
+                    <button class="btn btn-danger">Delete THIS Book</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+    {% include 'footer.html' %}
+</html>

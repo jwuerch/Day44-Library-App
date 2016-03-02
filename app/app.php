@@ -6,7 +6,7 @@
     require_once __DIR__."/../src/Book.php";
 
     $app = new Silex\Application();
-    $server = 'mysql:host=localhost;dbname=registrar';
+    $server = 'mysql:host=localhost;dbname=library';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -18,6 +18,36 @@
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig');
     });
+
+    $app->get("/books", function() use ($app) {
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
+    $app->get("/book/{id}", function($id) use ($app) {
+        $book = Book::find($id);
+        return $app['twig']->render('book.html.twig', array('books' => Book::getAll(), 'book' => $book));
+    });
+
+    $app->post("/add_book", function() use ($app) {
+        $title = $_POST['title'];
+        $genre = $_POST['genre'];
+        $copies = $_POST['copies'];
+        $new_book = new Book($title, $genre, $copies);
+        $new_book->save();
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
+    $app->post("delete_all_books", function() use ($app) {
+        Book::deleteAll();
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
+    $app->delete("/delete_book", function() use ($app) {
+        $book = Book::find($_POST['book_id']);
+        $book->delete();
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
 
     return $app;
  ?>
