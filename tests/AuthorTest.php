@@ -30,6 +30,19 @@
             //Assert;
             $this->assertEquals($first_name, $result);
         }
+
+        function testGetLastName() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $test_author = new Author($first_name, $last_name);
+
+            //Act;
+            $result = $test_author->getLastName();
+
+            //Assert;
+            $this->assertEquals($last_name, $result);
+        }
     }
 
 

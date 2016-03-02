@@ -23,6 +23,12 @@
         public function getFirstName() {
             return $this->first_name;
         }
+        public function getLastName() {
+            return $this->last_name;
+        }
+        public function getId() {
+            return $this->id;
+        }
     }
 
 
