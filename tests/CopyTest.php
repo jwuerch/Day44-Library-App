@@ -28,7 +28,7 @@
             $test_book = new Copy($number, $id);
 
             //Act;
-            $result = $test_book->getNumber();
+            $result = $test_book->getNumberOfCopies();
             //Assert;
             $this->assertEquals($number, $result);
         }
@@ -44,6 +44,25 @@
 
             //Assert;
             $this->assertEquals($id, $result);
+        }
+
+        function testGetAll() {
+            //Arrange;
+            $id = null;
+            $number = 1;
+            $test_book = new Copy($number, $id);
+            $test_book->save();
+
+            $id2 = null;
+            $number2 = 2;
+            $test_book2 = new Copy($number2, $id2);
+            $test_book2->save();
+
+            //Act;
+            $result = Copy::getAll();
+
+            //Assert;
+            $this->assertEquals([$test_book, $test_book2], $result);
         }
 
     }
