@@ -27,6 +27,9 @@
         public function getTitle() {
             return $this->title;
         }
+        public function getGenre() {
+            return $this->genre;
+        }
     }
 
 ?>

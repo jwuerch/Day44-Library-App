@@ -29,7 +29,19 @@
 
             //Assert;
             $this->assertEquals($title, $result);
+        }
 
+        function testGetGenre() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $test_book = new Book($title, $genre);
+
+            //Act;
+            $result = $test_book->getGenre();
+
+            //Assert;
+            $this->assertEquals($genre, $result);
         }
     }
 
