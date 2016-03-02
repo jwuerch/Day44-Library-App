@@ -63,6 +63,18 @@
             }
             return $found_author;
         }
+
+        static function searchByLastName($search_term) {
+            $authors = Author::getAll();
+            $found_authors = array();
+            foreach ($authors as $author) {
+                similar_text($author->getLastName(), $search_term, $percentage);
+                if ($percentage > 35) {
+                    array_push($found_authors, $author);
+                }
+            }
+            return $found_authors;
+        }
     }
 
 

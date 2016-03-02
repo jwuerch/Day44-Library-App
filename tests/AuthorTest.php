@@ -137,6 +137,34 @@
             //Assert;
             $this->assertEquals($test_author2, $result);
         }
+
+        function testSearchByLastName() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 1;
+            $test_author = new Author($first_name, $last_name, $id);
+            $test_author->save();
+
+            $first_name2 = 'Ernest';
+            $last_name2 = 'Hemingway';
+            $id2 = 2;
+            $test_author2 = new Author($first_name2, $last_name2, $id2);
+            $test_author2->save();
+
+            $first_name3 = 'Ernest';
+            $last_name3 = 'Hemingwayyy';
+            $id3 = 2;
+            $test_author3 = new Author($first_name3, $last_name3, $id3);
+            $test_author3->save();
+
+            //Act;
+            $search_term = 'Hemingway2';
+            $result = Author::searchByLastName($search_term);
+
+            //Assert;
+            $this->assertEquals([$test_author2, $test_author3], $result);
+        }
     }
 
 
