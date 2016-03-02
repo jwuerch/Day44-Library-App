@@ -15,7 +15,21 @@
     class BookTest extends PHPUnit_Framework_TestCase {
 
         protected function teardown() {
-            
+
+        }
+
+        function testGetTitle() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $test_book = new Book($title, $genre);
+
+            //Act;
+            $result = $test_book->getTitle();
+
+            //Assert;
+            $this->assertEquals($title, $result);
+
         }
     }
 
