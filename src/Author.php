@@ -49,7 +49,7 @@
         }
 
         static function deleteAll() {
-            $GLOBALS['DB']->excec("DELETE FROM authors");
+            $GLOBALS['DB']->exec("DELETE FROM authors");
         }
     }
 
