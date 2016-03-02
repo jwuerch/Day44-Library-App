@@ -86,7 +86,7 @@
             $result = Book::getAll();
 
             //Assert;
-            $this->assertEquals([$test_book], $result);
+            $this->assertEquals($test_book, $result[0]);
         }
 
         function testGetAll() {
@@ -110,7 +110,30 @@
 
             //Assert;
             $this->assertEquals([$test_book, $test_book2], $result);
+        }
 
+        function testDeleteAll() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $num_of_copies = 1;
+            $id = 1;
+            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book->save();
+
+            $title2 = 'The Chrysalids';
+            $genre2 = 'Sci-Fi';
+            $num_of_copies2 = 2;
+            $id2 = 3;
+            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $test_book2->save();
+
+            //Act;
+            Book::deleteAll();
+            $result = Book::getAll();
+
+            //Assert;
+            $this->assertEquals([], $result);
         }
     }
 
