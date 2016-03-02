@@ -48,7 +48,7 @@
         }
 
         static function getAll() {
-            $returned_books = $GLOBALS['DB']->query("SELECT * FROM books");
+            $returned_books = $GLOBALS['DB']->query("SELECT * FROM books ORDER BY title");
             $books = array();
 
             foreach ($returned_books as $book) {
@@ -117,7 +117,7 @@
             if ($new_num_of_copies == '' OR $new_num_of_copies == ' ') {
                 $new_num_of_copies == $this->getNumOfCopies;
             }
-            $GLOBALS['DB']->exec("UPDATE books SET title = {$new_title}, genre = {$new_genre}, num_of_copies = {$new_num_of_copies}");
+            $GLOBALS['DB']->exec("UPDATE books SET title = {$new_title}, genre = {$new_genre}, num_of_copies = {$new_num_of_copies} WHERE id = {$this->getId()}");
             $this->setTitle($new_title);
             $this->setGenre($new_genre);
             $this->setNumOfCopies($new_num_of_copies);
@@ -126,6 +126,15 @@
         public function delete() {
             $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()};");
+        }
+
+        public function dropCopy() {
+
+        }
+
+        public function addCopy() {
+            $current_copies = $this->getNumOfCopies() + 1;
+            $GLOBALS['DB']->exec("UPDATE books SET num_of_copies = {$current_copies} WHERE id = {$this->getId()};");
         }
     }
 

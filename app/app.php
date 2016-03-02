@@ -28,6 +28,12 @@
         return $app['twig']->render('book.html.twig', array('books' => Book::getAll(), 'book' => $book));
     });
 
+    $app->get("/search_books", function() use ($app) {
+        $result = Book::searchByTitle($_GET['search_term']);
+        var_dump($result);
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'results' => $result));
+    });
+
     $app->post("/add_book", function() use ($app) {
         $title = $_POST['title'];
         $genre = $_POST['genre'];
@@ -40,6 +46,16 @@
     $app->post("/delete_all_books", function() use ($app) {
         Book::deleteAll();
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
+    });
+
+    $app->post("/add_copy", function() use ($app) {
+        $book = Book::find($_POST['book_id']);
+        return $app['twig']->render('book.html.twig', array('book' => $book));
+    });
+
+    $app->post("/delete_copy", function() use ($app) {
+        $book = Book::find($_POST['book_id']);
+        return $app['twig']->render('book.html.twig', array('book' => $book));
     });
 
     $app->patch("/update_book/{id}", function($id) use ($app) {

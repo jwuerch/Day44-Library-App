@@ -7,6 +7,14 @@
                 <h3>{{ book.getTitle }}</h3>
                 <h5 style="text-decoration:underline;">{{ book.getGenre }}</h5>
                 <h5>There are a total of {{ book.getNumOfCopies }} copies.</h5>
+                <form action="/add_copy" method="post">
+                    <input type="hidden" name="book_id" value="{{ book.getId }}">
+                    <button class="btn btn-default" type="submit">Add Copy</button>
+                </form>
+                <form action="/delete_copy" method="post">
+                    <input type="hidden" name="book_id" value="{{ book.getId }}">
+                    <button class="btn btn-default" type="submit">Delete Copy</button>
+                </form>
                 <br>
                 <h5>Current Patrons Who Have A Copy Checked Out:</h5>
                 <ul>
@@ -32,12 +40,15 @@
                     <button class="btn btn-warning" type="submit">Update</button>
                 </form>
 
+
                 <br>
                 <form action="/delete_book" method="post">
                     <input type="hidden" name="_method" value="delete">
                     <input type="hidden" name="book_id" value="{{ book.getId() }}">
                     <button class="btn btn-danger">Delete THIS Book</button>
                 </form>
+                <br>
+                <br>
             </div>
         </div>
 

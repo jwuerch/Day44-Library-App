@@ -38,12 +38,24 @@
                     <button type="submit" class="button btn-primary">Add</button>
                 </form>
                 <br>
-                <br>
-
                 <!-- DELETE FORM -->
                 <form action="/delete_all_books" method="post">
                     <button class="btn btn-danger">Delete ALL Books</button>
                 </form>
+                <br>
+                <form action="/search_books">
+                    <div class="form-group">
+                        <label for="search_term">Search for Specific Books By Title</label>
+                        <input id="search_term" name="search_term" type="search" class="form-select">
+                    </div>
+                    <button type="submit" class="btn btn-success">Search</button>
+                </form>
+                <br>
+                {% for result in results %}
+                <ul>
+                    <li>{{ result.getTitle }}</li>
+                </ul>
+                {% endfor %}
             </div>
         </div>
     </body>
