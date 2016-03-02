@@ -43,6 +43,20 @@
             //Assert;
             $this->assertEquals($last_name, $result);
         }
+
+        function testGetId() {
+            //Arrange;
+            $first_name = 'Daniel';
+            $last_name = 'Quinn';
+            $id = 1;
+            $test_author = new Author($first_name, $last_name, $id);
+
+            //Act;
+            $result = $test_author->getId();
+
+            //Assert;
+            $this->assertEquals($id, $result);
+        }
     }
 
 
