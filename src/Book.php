@@ -62,6 +62,18 @@
             return $books;
         }
 
+        static function find($search_id) {
+            $books = Book::getAll();
+            $found_book = null;
+            foreach ($books as $book) {
+                $id = $book->getId();
+                if ($search_id == $id) {
+                    $found_book = $book;
+                }
+            }
+            return $found_book;
+        }
+
     }
 
 ?>
