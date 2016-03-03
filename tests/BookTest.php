@@ -19,7 +19,6 @@
         protected function teardown() {
             Book::deleteAll();
             Author::deleteAll();
-            Copy::deleteAll();
         }
 
         function testGetTitle() {
@@ -48,31 +47,12 @@
             $this->assertEquals($genre, $result);
         }
 
-        function testGetCopyId() {
-            //Arrange;
-            $number = 2;
-            $id = 1;
-            $test_copy = new Copy($number, $id);
-
-            $title = 'Ishmael';
-            $genre = 'Sci-Fi';
-            $copy_id = $test_copy->getId();
-            $test_book = new Book($title, $genre, $copy_id);
-
-            //Act;
-            $result = $test_book->getCopyId();
-
-            //Assert;
-            $this->assertEquals($copy_id, $result);
-        }
-
         function testGetId() {
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
 
             //Act;
             $result = $test_book->getId();
@@ -83,13 +63,10 @@
 
         function testSave() {
             //Arrange;
-            $copy_id = null;
-            $copy = new Copy($copy_id);
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 2;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
 
             //Act;
             $test_book->save();
@@ -101,17 +78,14 @@
 
         function testGetAll() {
             //Arrange;
-            $copy = new Copy();
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 2;
-            $test_book = new Book($title, $genre, $copy_id);
+            $test_book = new Book($title, $genre);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $copy_id2
-            $test_book2 = new Book($title2, $genre2, $copy_id2);
+            $test_book2 = new Book($title2, $genre2);
             $test_book2->save();
 
             //Act;
@@ -125,16 +99,14 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
+            $test_book2 = new Book($title2, $genre2, $id2);
             $test_book2->save();
 
             //Act;
@@ -149,16 +121,14 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
+            $test_book2 = new Book($title2, $genre2, $id2);
             $test_book2->save();
 
             //Act;
@@ -166,34 +136,6 @@
 
             //Assert;
             $this->assertEquals($test_book2, $result);
-        }
-
-        function testSearchByTitle() {
-            //Arrange;
-            $id = null;
-            $copy = new Copy($id);
-            $title = 'Ishmael2';
-            $genre = 'Sci-Fi';
-            $copy_id = $copy->getId();
-            $test_book = new Book($title, $genre, $copy_id, $id);
-            $test_book->save();
-
-            $title2 = 'The Chrysalids';
-            $genre2 = 'Sci-Fi';
-            $test_book2 = new Book($title, $genre, $copy_id, $id);
-            $test_book2->save();
-
-            $title3 = 'Chrysalids';
-            $genre3 = 'Sci-Fi';
-            $test_book3 = new Book($title, $genre, $copy_id, $id);
-            $test_book3->save();
-
-            //Act;
-            $search_term = 'Chrysalids';
-            $result = Book::searchByTitle($search_term);
-
-            //Assert;
-            $this->assertEquals([$test_book2, $test_book3], $result);
         }
 
         function testAddAuthor() {
@@ -230,9 +172,8 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
             $test_book->save();
 
             $first_name = 'Daniel';
@@ -258,39 +199,35 @@
         function testUpdate() {
             //Arrange;
 
-            $number = 3;
-            $copy = new Copy($number);
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = $copy->getId();
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
             $test_book->save();
 
             //Act;
-            $new_title = '';
+            $new_title = 'Donny';
             $new_genre =' ';
             $test_book->update($new_title, $new_genre);
             $result = [$test_book->getTitle(), $test_book->getGenre()];
 
             //Assert;
-            $this->assertEquals(['Ishmael', 'Sci-Fi'], $result);
+            $this->assertEquals(['Donny', ' '], $result);
         }
 
         function testDelete() {
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $copy_id, $id);
+            $test_book = new Book($title, $genre, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
             $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
+            $test_book2 = new Book($title2, $genre2, $id2);
             $test_book2->save();
 
             //Act;
@@ -301,6 +238,59 @@
             $this->assertEquals([$test_book2], $result);
 
         }
+
+        function testGetNumOfCopies() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $test_book = new Book($title, $genre);
+            $test_book->save();
+
+            $book_id = $test_book->getId();
+            $available = 1;
+            $due_date = '2016-03-03';
+            $test_copy = new Copy($book_id, $available, $due_date);
+            $test_copy->save();
+
+            $book_id2 = $test_book->getId();
+            $available2 = 1;
+            $due_date2 = '2016-03-03';
+            $test_copy2 = new Copy($book_id2, $available2, $due_date2);
+            $test_copy2->save();
+
+            //Act;
+            $result = $test_book->getNumOfCopies();
+
+            //Assert;
+            $this->assertEquals(2, $result);
+        }
+
+        function testGetCopies() {
+            //Arrange;
+            $title = 'Ishmael';
+            $genre = 'Sci-Fi';
+            $test_book = new Book($title, $genre);
+            $test_book->save();
+
+            $book_id = $test_book->getId();
+            $available = 1;
+            $due_date = '2016-03-03';
+            $test_copy = new Copy($book_id, $available, $due_date);
+            $test_copy->save();
+
+            $book_id2 = $test_book->getId();
+            $available2 = 1;
+            $due_date2 = '2016-03-03';
+            $test_copy2 = new Copy($book_id2, $available2, $due_date2);
+            $test_copy2->save();
+
+            //Act;
+            $result = $test_book->getCopies();
+
+            //Assert;
+            $this->assertEquals([$test_copy, $test_copy2], $result);
+        }
+
     }
 
 

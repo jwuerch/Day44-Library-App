@@ -3,22 +3,13 @@
     {% include 'header.html' %}
     <body>
         <div class="container">
-
-                    <h5>Here Are Your Current Books:</h5>
-                    <ul>
-                        {% for book in books %}
-                            <li><a href="/book/{{ book.getId }}">{{ book.getTitle }}</a></li>
-                                <ul>
-                                    <li><span style="text-decoration:underline;">Genre</span>: {{ book.getGenre }}</li>
-                                    <li>{{ book.getNumOfCopies }} total copies
-                                </ul>
-                        {% endfor %}
-                    <ul>
-                <br>
+                <div class="row">
 
                 <!-- ADD BOOK FORM -->
+                <div class="col-sm-6">
                 <form action="/add_book" method="post" class="form1">
-                    <h5>Add A Book To Your Library:</h5>
+                    <h4>Add A Book To Your Library:</h4>
+                    <br>
                     <div class="form-group">
                         <label for="title">Add Title</label>
                         <input id="title" name="title" class="form-select" type="text" placeholder="Ishmael" required>
@@ -37,9 +28,6 @@
                 </form>
                 <br>
                 <!-- DELETE FORM -->
-                <form action="/delete_all_books" method="post">
-                    <button class="btn btn-danger">Delete ALL Books</button>
-                </form>
                 <br>
                 <form action="/search_books">
                     <div class="form-group">
@@ -54,6 +42,24 @@
                     <li>{{ result.getTitle }}</li>
                 </ul>
                 {% endfor %}
+            </div>
+            <div class="col-sm-6">
+                <h4>Here Are Your Current Books:</h4>
+                <br>
+                <ul>
+                    {% for book in all_books %}
+                        <li><a href="/book/{{ book.getId }}">{{ book.getTitle }}</a></li>
+                            <ul>
+                                <li><span style="text-decoration:underline;">Genre</span>: {{ book.getGenre }}</li>
+                            </ul>
+                    {% endfor %}
+                <ul>
+                    <br>
+                <form action="/delete_all_books" method="post">
+                    <button class="btn btn-danger">Delete ALL Books</button>
+                </form>
+            </div>
+        </div>
         </div>
     </body>
     {% include 'footer.html' %}

@@ -20,17 +20,37 @@
     });
 
     $app->get("/books", function() use ($app) {
-        return $app['twig']->render('books.html.twig', array('books' => Book::getAll()));
-    });
-
-    $app->get("/book/{id}", function($id) use ($app) {
-        $book = Book::find($id);
-        return $app['twig']->render('book.html.twig', array('books' => Book::getAll(), 'book' => $book));
+        $copies = Copy::getAll();
+        $copies_count = count($copies);
+        return $app['twig']->render('books.html.twig', array('all_books' => Book::getAll(), 'copies' => $copies_count));
     });
 
     $app->get("/search_books", function() use ($app) {
         $result = Book::searchByTitle($_GET['search_term']);
-        return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'results' => $result));
+        return $app['twig']->render('books.html.twig', array('all_books' => Book::getAll(), 'results' => $result));
+    });
+
+    $app->get("/book/{id}", function($id) use ($app) {
+        $book = Book::find($id);
+        $copies = $book->getCopies();
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'copies' => $copies));
+    });
+
+    $app->post("/add_book", function() use ($app) {
+        $title = $_POST['title'];
+        $genre = $_POST['genre'];
+        $new_book = new Book($title, $genre);
+        $new_book->save();
+        return $app['twig']->render('books.html.twig', array('all_books' => Book::getAll()));
+    });
+
+    $app->post("/add_copy", function() use ($app) {
+        $book = Book::find($_POST['book_id']);
+        $book_id = $book->getId();
+        $new_copy = new Copy($book_id);
+        $new_copy->save();
+        $copies = $book->getCopies();
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'copies' => $copies));
     });
 
     $app->post("/add_book", function() use ($app) {

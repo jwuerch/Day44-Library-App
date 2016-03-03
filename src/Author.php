@@ -89,9 +89,8 @@
             foreach ($returned_books as $book) {
                 $title = $book['title'];
                 $genre = $book['genre'];
-                $num_of_copies = $book['num_of_copies'];
                 $id = $book['id'];
-                $new_book = new Book($title, $genre, $num_of_copies, $id);
+                $new_book = new Book($title, $genre, $id);
                 array_push($books, $new_book);
             }
             return $books;
