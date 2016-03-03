@@ -7,6 +7,7 @@
 
     require_once "src/Book.php";
     require_once "src/Author.php";
+    require_once "src/Copy.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -18,6 +19,7 @@
         protected function teardown() {
             Book::deleteAll();
             Author::deleteAll();
+            Copy::deleteAll();
         }
 
         function testGetTitle() {
@@ -46,27 +48,31 @@
             $this->assertEquals($genre, $result);
         }
 
-        function testGetNumOfCopies() {
+        function testGetCopyId() {
             //Arrange;
+            $number = 2;
+            $id = 1;
+            $test_copy = new Copy($number, $id);
+
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 2;
-            $test_book = new Book($title, $genre, $num_of_copies);
+            $copy_id = $test_copy->getId();
+            $test_book = new Book($title, $genre, $copy_id);
 
             //Act;
-            $result = $test_book->getNumOfCopies();
+            $result = $test_book->getCopyId();
 
             //Assert;
-            $this->assertEquals($num_of_copies, $result);
+            $this->assertEquals($copy_id, $result);
         }
 
         function testGetId() {
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
 
             //Act;
             $result = $test_book->getId();
@@ -77,11 +83,13 @@
 
         function testSave() {
             //Arrange;
+            $copy_id = null;
+            $copy = new Copy($copy_id);
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 2;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
 
             //Act;
             $test_book->save();
@@ -93,18 +101,17 @@
 
         function testGetAll() {
             //Arrange;
+            $copy = new Copy();
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
-            $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $copy_id = 2;
+            $test_book = new Book($title, $genre, $copy_id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $num_of_copies2 = 2;
-            $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $copy_id2
+            $test_book2 = new Book($title2, $genre2, $copy_id2);
             $test_book2->save();
 
             //Act;
@@ -118,16 +125,16 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $num_of_copies2 = 2;
+            $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
             $test_book2->save();
 
             //Act;
@@ -142,16 +149,16 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $num_of_copies2 = 2;
+            $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
             $test_book2->save();
 
             //Act;
@@ -163,25 +170,22 @@
 
         function testSearchByTitle() {
             //Arrange;
+            $id = null;
+            $copy = new Copy($id);
             $title = 'Ishmael2';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
-            $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $copy_id = $copy->getId();
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $num_of_copies2 = 2;
-            $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $test_book2 = new Book($title, $genre, $copy_id, $id);
             $test_book2->save();
 
             $title3 = 'Chrysalids';
             $genre3 = 'Sci-Fi';
-            $num_of_copies3 = 3;
-            $id3 = 3;
-            $test_book3 = new Book($title3, $genre3, $num_of_copies3, $id3);
+            $test_book3 = new Book($title, $genre, $copy_id, $id);
             $test_book3->save();
 
             //Act;
@@ -196,9 +200,9 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $first_name = 'Daniel';
@@ -226,9 +230,9 @@
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $first_name = 'Daniel';
@@ -253,38 +257,40 @@
 
         function testUpdate() {
             //Arrange;
+
+            $number = 3;
+            $copy = new Copy($number);
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = $copy->getId();
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             //Act;
             $new_title = '';
             $new_genre =' ';
-            $new_num_of_copies = 2;
-            $test_book->update($new_title, $new_genre, $new_num_of_copies);
-            $result = [$test_book->getTitle(), $test_book->getGenre(), $test_book->getNumOfCopies()];
+            $test_book->update($new_title, $new_genre);
+            $result = [$test_book->getTitle(), $test_book->getGenre()];
 
             //Assert;
-            $this->assertEquals(['Ishmael', 'Sci-Fi', $new_num_of_copies], $result);
+            $this->assertEquals(['Ishmael', 'Sci-Fi'], $result);
         }
 
         function testDelete() {
             //Arrange;
             $title = 'Ishmael';
             $genre = 'Sci-Fi';
-            $num_of_copies = 1;
+            $copy_id = 1;
             $id = 1;
-            $test_book = new Book($title, $genre, $num_of_copies, $id);
+            $test_book = new Book($title, $genre, $copy_id, $id);
             $test_book->save();
 
             $title2 = 'The Chrysalids';
             $genre2 = 'Sci-Fi';
-            $num_of_copies2 = 2;
+            $copy_id2 = 2;
             $id2 = 3;
-            $test_book2 = new Book($title2, $genre2, $num_of_copies2, $id2);
+            $test_book2 = new Book($title2, $genre2, $copy_id2, $id2);
             $test_book2->save();
 
             //Act;
@@ -295,7 +301,7 @@
             $this->assertEquals([$test_book2], $result);
 
         }
-
+    }
 
 
 ?>
